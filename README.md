@@ -34,7 +34,7 @@ de-identification had destroyed it.
 | E6 | both | Clock reference, physiological anchor: lag of eICU-CRD heart-rate and respiratory-rate day–night profiles (recorded clock) against MIMIC-IV (Boston local time), per hospital and region. Two estimates: whole-hour circular cross-correlation, and first-harmonic cosinor acrophase difference corrected for within-hour timing |
 | E7 | both | Clock reference, administrative anchor: lag of eICU-CRD live hospital-discharge and ICU-discharge time profiles (10-minute bins, exact midnight excluded) against MIMIC-IV, by cross-correlation and cosinor, per hospital and region |
 
-## Main results (run of 20 Oct 2026; `results/paper26_summary.txt`)
+## Main results (run of 20 Oct 2026, script v8; `results/paper26_summary.txt`)
 
 - **Weekday (MIMIC-IV).** 29.07% (95% CI 28.64–29.51%) of 41,683 first scheduled admissions fall on a weekend, slightly above the 28.57% expected if weekday is scrambled.
 - **Season (MIMIC-IV).** 35.1% of 2,187 first influenza admissions fall in December–March, against 33.2% if season is scrambled (χ² P = .47).
@@ -76,7 +76,7 @@ Requirements: Python ≥ 3.11 and [uv](https://docs.astral.sh/uv/). Dependencies
 [PEP 723](https://peps.python.org/pep-0723/). No GPU is needed.
 
 ```bash
-uv run scripts/paper26_timestamp_checks_v7.py \
+uv run scripts/paper26_timestamp_checks_v8.py \
     --mimic-root ~/physionet.org/files/mimiciv/3.1 \
     --eicu-root  ~/physionet.org/files/eicu-crd/2.0 \
     --out-dir    ~/paper26_results
@@ -103,7 +103,7 @@ over `labevents`, `chartevents`, eICU-CRD `lab` and `vitalPeriodic`.
 ## Testing on synthetic data
 
 `synthetic/make_mock_v2.py` writes MIMIC-IV- and eICU-CRD-shaped tables with
-planted effects:
+planted effects (written for script v7; v8 reads the same tables):
 
 - weekday-clustered scheduled admissions and winter influenza;
 - morning laboratory peaks, with results grouped into specimens (`specimen_id`);
@@ -115,7 +115,7 @@ planted effects:
 
 ```bash
 uv run synthetic/make_mock_v2.py scrambled mock_utc utc     # or: preserved <dir> local
-uv run scripts/paper26_timestamp_checks_v7.py \
+uv run scripts/paper26_timestamp_checks_v8.py \
     --mimic-root mock_utc/mimiciv/3.1 --eicu-root mock_utc/eicu-crd/2.0 \
     --out-dir mock_out
 ```
@@ -148,11 +148,12 @@ lags recover the planted regional offsets; with `local`, they are about 0.
 
 ## Version
 
-This release corresponds to script version 7. It is the version used for the
+This release corresponds to script version 8. It is the version used for the
 manuscript.
+- **v8 change:** Figure 1C y-axis label corrected to "Share of result rows" (the panel counts `labevents` rows). No computation or other output changed; all CSVs are identical to v7.
 - **v7 additions:** per-specimen laboratory counts (M3); cosinor phase lags with a correction for within-hour timing (E6); discharge-time anchor (E7) and Figure 4. All v6 computations and outputs are unchanged.
 - **v6 additions:** non-zero-seconds shares; expected UTC ranges corrected for the time zones each region spans; figures at 300 dpi; no hospital identifiers in outputs.
-- **v1–v5:** development versions, not included. Their computations are unchanged in v7.
+- **v1–v5:** development versions, not included. Their computations are unchanged in v8.
 
 ## Use of generative AI
 

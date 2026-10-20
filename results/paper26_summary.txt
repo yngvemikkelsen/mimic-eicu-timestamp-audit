@@ -1,5 +1,5 @@
-Paper 26 timestamp checks (v7)
-run 2026-10-20 15:12:31
+Paper 26 timestamp checks (v8)
+run 2026-10-20 18:54:34
 MIMIC-IV root: /Users/yngve/physionet.org/files/mimiciv/3.1
 eICU-CRD root: /Users/yngve/physionet.org/files/eicu-crd/2.0
 
@@ -162,4 +162,4 @@ unit_discharge:
 Status
 ------
 all checks completed
-outputs in /Users/yngve/paper26_results_v7
+outputs in /Users/yngve/paper26_results_v8
