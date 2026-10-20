@@ -1,0 +1,6 @@
+table,column
+patient.csv.gz,hospitaladmittime24
+patient.csv.gz,hospitaldischargeyear
+patient.csv.gz,hospitaldischargetime24
+patient.csv.gz,unitadmittime24
+patient.csv.gz,unitdischargetime24

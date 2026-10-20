@@ -1,0 +1,165 @@
+Paper 26 timestamp checks (v7)
+run 2026-10-20 15:12:31
+MIMIC-IV root: /Users/yngve/physionet.org/files/mimiciv/3.1
+eICU-CRD root: /Users/yngve/physionet.org/files/eicu-crd/2.0
+
+M1  MIMIC-IV day of week (admissions.admittime)
+-----------------------------------------------
+admission_type counts: EW EMER.=177,459; EU OBSERVATION=119,456; OBSERVATION ADMIT=84,437; URGENT=54,929; SURGICAL SAME DAY ADMISSION=42,898; DIRECT OBSERVATION=24,551; DIRECT EMER.=21,973; ELECTIVE=13,130; AMBULATORY OBSERVATION=7,195
+admissions with parseable admittime: 546,028 of 546,028
+scheduled admissions (ELECTIVE, SURGICAL SAME DAY ADMISSION): 56,028 admissions in 41,683 patients
+PRIMARY (first scheduled admission per patient): weekend share = 0.2907 (95% CI 0.2864-0.2951); expectation if weekday is scrambled = 0.2857; expectation is outside the CI
+chi-square vs uniform weekdays: 14.47 on 6 df, p = 0.0248
+adjusted residuals by weekday (|z| > 1.96 flags a single day): Mon -0.79; Tue -1.52; Wed -1.00; Thu +1.08; Fri -0.67; Sat +3.34; Sun -0.43
+  ELECTIVE: n = 9,675 patients, weekend share 0.2879 (95% CI 0.2789-0.2970)
+  SURGICAL SAME DAY ADMISSION: n = 34,481 patients, weekend share 0.2909 (95% CI 0.2861-0.2957)
+secondary, all scheduled admissions (patients counted more than once; no CI): weekend share 0.2894
+first admission of any type per patient: weekend share 0.2874 (95% CI 0.2856-0.2893)
+
+M2  MIMIC-IV season (influenza admissions by month)
+---------------------------------------------------
+diagnoses_icd rows scanned: 6,364,488; admissions with an influenza code: 2,307
+influenza admissions with parseable admittime: 2,307 admissions in 2,187 patients
+PRIMARY (first influenza admission per patient): Dec-Mar share = 0.3512 (95% CI 0.3314-0.3714); expectation if season is scrambled = 0.3320; expectation is inside the CI
+chi-square vs days-per-month expectation: 10.72 on 11 df, p = 0.467
+secondary, all influenza admissions (patients counted more than once; no CI): Dec-Mar share 0.3424
+
+M3  MIMIC-IV time of day
+------------------------
+labevents rows read: 158,374,764; unparseable charttime: 0; with non-zero seconds: 0
+lab specimen times: peak hour 06:00, busiest 3-hour window 05:00-07:59 holds 0.233 of draws (0.125 if flat); peak/trough ratio 6.86
+lab charttime exactly 00:00:00: 3,482,197 (0.0220 of all; 1/1440 = 0.0007 if minutes were uniform); of the 6,710,277 hour-00 times, 0.519 are exactly 00:00:00 (1/60 = 0.017 if uniform within the hour)
+lab charttime exactly on the hour, hours 01-23: 0.094 (1/60 = 0.017 if uniform)
+laboratory specimens (distinct specimen_id; time of the first result row): 17,503,481; result rows per specimen 9.05
+specimens exactly 00:00:00: 219,018 (0.0125); of the 563,815 hour-00 specimens, 0.388 are exactly 00:00:00; specimens exactly on the hour, hours 01-23: 0.093
+specimen times: peak hour 06:00, busiest 3-hour window 05:00-07:59 holds 0.211
+scheduled admission times: n = 56,028, peak hour 00:00, busiest 3-hour window 07:00-09:59 holds 0.371 (0.125 if flat)
+
+M5  MIMIC-IV placeholder times (exactly 00:00:00, on the hour)
+--------------------------------------------------------------
+with genuine minute-resolution times: exactly 00:00:00 = 0.0007 of all times; of hour-00 times 0.017; on the hour 0.017
+  admittime, all admission types: n = 546,028; exactly 00:00:00 = 18,121 (0.0332); of hour-00 times exactly 00:00:00 = 0.446; on the hour, hours 01-23 = 0.036; non-zero seconds = 0.0000
+  admittime, AMBULATORY OBSERVATION: n = 7,195; exactly 00:00:00 = 15 (0.0021); of hour-00 times exactly 00:00:00 = 0.200; on the hour, hours 01-23 = 0.054; non-zero seconds = 0.0000
+  admittime, DIRECT EMER.: n = 21,973; exactly 00:00:00 = 89 (0.0041); of hour-00 times exactly 00:00:00 = 0.257; on the hour, hours 01-23 = 0.027; non-zero seconds = 0.0000
+  admittime, DIRECT OBSERVATION: n = 24,551; exactly 00:00:00 = 1,444 (0.0588); of hour-00 times exactly 00:00:00 = 0.714; on the hour, hours 01-23 = 0.049; non-zero seconds = 0.0000
+  admittime, ELECTIVE: n = 13,130; exactly 00:00:00 = 930 (0.0708); of hour-00 times exactly 00:00:00 = 0.938; on the hour, hours 01-23 = 0.180; non-zero seconds = 0.0000
+  admittime, EU OBSERVATION: n = 119,456; exactly 00:00:00 = 75 (0.0006); of hour-00 times exactly 00:00:00 = 0.011; on the hour, hours 01-23 = 0.016; non-zero seconds = 0.0000
+  admittime, EW EMER.: n = 177,459; exactly 00:00:00 = 99 (0.0006); of hour-00 times exactly 00:00:00 = 0.011; on the hour, hours 01-23 = 0.017; non-zero seconds = 0.0000
+  admittime, OBSERVATION ADMIT: n = 84,437; exactly 00:00:00 = 423 (0.0050); of hour-00 times exactly 00:00:00 = 0.121; on the hour, hours 01-23 = 0.020; non-zero seconds = 0.0000
+  admittime, SURGICAL SAME DAY ADMISSION: n = 42,898; exactly 00:00:00 = 13,944 (0.3251); of hour-00 times exactly 00:00:00 = 0.952; on the hour, hours 01-23 = 0.194; non-zero seconds = 0.0000
+  admittime, URGENT: n = 54,929; exactly 00:00:00 = 1,102 (0.0201); of hour-00 times exactly 00:00:00 = 0.352; on the hour, hours 01-23 = 0.035; non-zero seconds = 0.0000
+  icustays.intime: n = 94,458; exactly 00:00:00 = 0 (0.0000); of hour-00 times exactly 00:00:00 = 0.000; on the hour, hours 01-23 = 0.009; non-zero seconds = 0.6427
+  icustays.outtime: n = 94,444; exactly 00:00:00 = 3 (0.0000); of hour-00 times exactly 00:00:00 = 0.001; on the hour, hours 01-23 = 0.000; non-zero seconds = 0.9825; unparseable 14
+
+M4  MIMIC-IV concurrency (ICU census from shifted times)
+--------------------------------------------------------
+ICU stays: 94,458; with valid intime < outtime: 94,444
+shifted calendar span: 2110-01-11 to 2214-07-26 (104.5 years)
+census from shifted times (time-weighted): mean 8.98, median 10, 90th pct 15, 99th pct 20, max 27; share of time with census 0: 0.078
+anchor_year_group of ICU patients spans 2008-2022 (15 years): ['2008 - 2010', '2011 - 2013', '2014 - 2016', '2017 - 2019', '2020 - 2022']
+implied mean real census, if total ICU stay-time (342,834 stay-days) is spread over 15 calendar years: 62.6 (approximate)
+ratio implied real / shifted mean census: 7.0
+
+E1  eICU-CRD calendar and clock fields (all tables)
+---------------------------------------------------
+tables scanned: 31
+  patient.csv.gz: hospitaladmittime24
+  patient.csv.gz: hospitaldischargeyear
+  patient.csv.gz: hospitaldischargetime24
+  patient.csv.gz: unitadmittime24
+  patient.csv.gz: unitdischargetime24
+
+E2  eICU-CRD time of day
+------------------------
+hospitaldischargeyear: 2014=95,513; 2015=105,346
+unit stays: 200,859; parseable unitadmittime24: 200,859
+unit admission clock time: peak hour 22:00, busiest 3-hour window 21:00-23:59 holds 0.185 (0.125 if flat)
+lab rows read: 39,132,531; without a usable admission clock time or offset: 0
+lab result clock time (unitadmittime24 + labresultoffset): peak hour 10:00, busiest 3-hour window 09:00-11:59 holds 0.368 (0.125 if flat); peak/trough ratio 7.71
+note: labresultoffset is the result time, not the draw time
+
+E3  eICU-CRD concurrency (census built from offsets)
+----------------------------------------------------
+unit stays with unitdischargeoffset: 200,859; offsets are minutes from each stay's own unit admission (offset 0)
+stays 'present' at hour h after admission: h=0: 199,646; h=24: 132,783; h=72: 49,440; h=168: 14,980
+non-increasing in h: yes - the offset 'census' is the length-of-stay survival curve
+
+E4  eICU-CRD placeholder times (exactly 00:00:00, on the hour)
+--------------------------------------------------------------
+with genuine minute-resolution times: exactly 00:00:00 = 0.0007 of all times; of hour-00 times 0.017; on the hour 0.017
+  patient.hospitaladmittime24: n = 200,859; exactly 00:00:00 = 262 (0.0013); of hour-00 times exactly 00:00:00 = 0.026; on the hour, hours 01-23 = 0.024; non-zero seconds = 0.1628
+  patient.hospitaldischargetime24: n = 200,859; exactly 00:00:00 = 876 (0.0044); of hour-00 times exactly 00:00:00 = 0.072; on the hour, hours 01-23 = 0.065; non-zero seconds = 0.0040
+  patient.unitadmittime24: n = 200,859; exactly 00:00:00 = 247 (0.0012); of hour-00 times exactly 00:00:00 = 0.021; on the hour, hours 01-23 = 0.023; non-zero seconds = 0.0008
+  patient.unitdischargetime24: n = 200,859; exactly 00:00:00 = 433 (0.0022); of hour-00 times exactly 00:00:00 = 0.035; on the hour, hours 01-23 = 0.037; non-zero seconds = 0.0004
+
+E5  eICU-CRD clock reference: local time or UTC?
+------------------------------------------------
+hospital.region values: Midwest=70; South=56; West=43; nan=26; Northeast=13
+hospitals with laboratory results: 207; with >= 2,000 results (analysed): 196
+lag of each hospital's laboratory-result clock profile (10-min bins) against the pooled Northeast profile (leave-one-out for Northeast hospitals); positive = later on the recorded clock
+expected if *time24 is UTC (relative to the Northeast, Eastern zone): Midwest 0 to +1 h, South 0 to +1 h, West +2 to +3 h (approximate: each region spans more than one zone); if local time: about 0 in every region
+  Northeast: 13 hospitals; median lag +0.83 h (IQR +0.00 to +1.00; bootstrap 95% CI of median +0.00 to +1.00); median r 0.86; pooled lab lag +0.00 h; pooled unit-admission lag +0.00 h
+  (missing): 24 hospitals; median lag +1.33 h (IQR +0.83 to +2.12; bootstrap 95% CI of median +1.00 to +2.00); median r 0.84; pooled lab lag +2.00 h; pooled unit-admission lag +1.00 h
+  Midwest: 65 hospitals; median lag +1.00 h (IQR +0.33 to +1.50; bootstrap 95% CI of median +0.83 to +1.00); median r 0.90; pooled lab lag +1.00 h; pooled unit-admission lag +0.67 h
+  South: 54 hospitals; median lag +0.00 h (IQR -0.50 to +0.50; bootstrap 95% CI of median -0.33 to +0.00); median r 0.93; pooled lab lag +0.00 h; pooled unit-admission lag +0.17 h
+  West: 40 hospitals; median lag +3.00 h (IQR +2.00 to +3.00; bootstrap 95% CI of median +2.25 to +3.00); median r 0.89; pooled lab lag +2.00 h; pooled unit-admission lag +1.33 h
+hospitals with |lag| > 6 h (outlying profiles): 3 - (South, -11.00 h, r 0.28, 2,000 results); (South, -11.00 h, r 0.21, 3,846 results); (South, -11.83 h, r 0.28, 2,096 results)
+eICU Northeast laboratory-result profile against MIMIC-IV specimen-time profile (Boston local time, exact midnight excluded): lag +3.00 h (r 0.72); expected about +5 to +6 h if eICU is UTC (offset plus turnaround), about +1 h (turnaround) if local
+
+E6  eICU-CRD clock reference: physiological anchor (MIMIC-IV, Boston local time)
+--------------------------------------------------------------------------------
+d_items 220045: 'Heart Rate' (expected 'Heart Rate') -> used
+d_items 220210: 'Respiratory Rate' (expected 'Respiratory Rate') -> used
+MIMIC-IV chartevents rows scanned: 432,997,491
+MIMIC-IV heart_rate: 8,748,115 values; stays covering >= 18 clock hours: 83,017; profile nadir at 03:00, peak at 20:00 (Boston local time); mean minute within the clock hour 3.4
+MIMIC-IV respiratory_rate: 8,603,947 values; stays covering >= 18 clock hours: 82,357; profile nadir at 03:00, peak at 20:00 (Boston local time); mean minute within the clock hour 3.4
+eICU-CRD vitalPeriodic rows scanned: 146,671,642
+eICU-CRD heart_rate: 145,942,071 values; stays covering >= 18 clock hours: 154,584; mean minute within the clock hour 29.5
+eICU-CRD respiratory_rate: 127,224,147 values; stays covering >= 18 clock hours: 139,082; mean minute within the clock hour 29.5
+lag of eICU profile (recorded clock) against MIMIC-IV profile (local); positive = eICU later on its recorded clock
+expected if eICU *time24 is UTC: Northeast +4 to +5 h, Midwest +4 to +6 h, South +4 to +6 h, West +6 to +8 h (contiguous states; ranges include standard and daylight saving time, which cannot be resolved without dates); if a common US Eastern clock: Northeast 0, Midwest and South 0 to +1, West +2 to +3; if local time: about 0 everywhere
+cosinor phase lags are corrected for the difference in mean minute within the clock hour between the two databases (values binned by hour are labelled at the bin centre on both sides)
+heart_rate: bin-timing correction +0.43 h (eICU mean minute 29.5, MIMIC-IV 3.4)
+heart_rate:
+  Northeast: 11,446 stays; pooled lag +3 h (r 0.96); 13 hospitals with >= 30 stays: median lag +3.0 h (bootstrap 95% CI +3.0 to +3.0); cosinor phase lag: pooled +3.00 h, hospital median +2.84 h (bootstrap 95% CI +2.53 to +3.11)
+  (missing): 10,193 stays; pooled lag +6 h (r 0.95); 20 hospitals with >= 30 stays: median lag +5.0 h (bootstrap 95% CI +4.5 to +7.0); cosinor phase lag: pooled +5.38 h, hospital median +4.95 h (bootstrap 95% CI +4.26 to +5.76)
+  Midwest: 53,316 stays; pooled lag +4 h (r 0.96); 63 hospitals with >= 30 stays: median lag +4.0 h (bootstrap 95% CI +4.0 to +4.0); cosinor phase lag: pooled +4.14 h, hospital median +3.89 h (bootstrap 95% CI +3.77 to +4.07)
+  South: 48,402 stays; pooled lag +4 h (r 0.97); 51 hospitals with >= 30 stays: median lag +4.0 h (bootstrap 95% CI +4.0 to +4.0); cosinor phase lag: pooled +3.87 h, hospital median +3.64 h (bootstrap 95% CI +3.44 to +3.98)
+  West: 31,227 stays; pooled lag +7 h (r 0.96); 39 hospitals with >= 30 stays: median lag +7.0 h (bootstrap 95% CI +6.0 to +7.0); cosinor phase lag: pooled +6.28 h, hospital median +6.31 h (bootstrap 95% CI +6.19 to +6.52)
+  all eICU stays: cosinor phase lag +4.46 h; MIMIC-IV acrophase 18.13 h
+  all eICU stays: pooled lag +5 h (r 0.96); eICU nadir at 10:00 and MIMIC-IV nadir at 03:00 on their recorded clocks
+respiratory_rate: bin-timing correction +0.43 h (eICU mean minute 29.5, MIMIC-IV 3.4)
+respiratory_rate:
+  Northeast: 10,267 stays; pooled lag +4 h (r 0.97); 13 hospitals with >= 30 stays: median lag +4.0 h (bootstrap 95% CI +4.0 to +4.0); cosinor phase lag: pooled +3.78 h, hospital median +4.02 h (bootstrap 95% CI +3.85 to +4.27)
+  (missing): 9,538 stays; pooled lag +5 h (r 0.97); 20 hospitals with >= 30 stays: median lag +5.0 h (bootstrap 95% CI +4.0 to +7.0); cosinor phase lag: pooled +5.59 h, hospital median +4.88 h (bootstrap 95% CI +4.44 to +6.23)
+  Midwest: 48,140 stays; pooled lag +4 h (r 0.97); 63 hospitals with >= 30 stays: median lag +4.0 h (bootstrap 95% CI +4.0 to +5.0); cosinor phase lag: pooled +4.40 h, hospital median +4.58 h (bootstrap 95% CI +4.26 to +4.84)
+  South: 41,531 stays; pooled lag +4 h (r 0.98); 50 hospitals with >= 30 stays: median lag +4.0 h (bootstrap 95% CI +4.0 to +4.0); cosinor phase lag: pooled +4.15 h, hospital median +4.50 h (bootstrap 95% CI +4.22 to +4.81)
+  West: 29,606 stays; pooled lag +6 h (r 0.97); 39 hospitals with >= 30 stays: median lag +7.0 h (bootstrap 95% CI +6.0 to +7.0); cosinor phase lag: pooled +6.36 h, hospital median +6.64 h (bootstrap 95% CI +6.46 to +7.14)
+  all eICU stays: cosinor phase lag +4.71 h; MIMIC-IV acrophase 16.54 h
+  all eICU stays: pooled lag +4 h (r 0.96); eICU nadir at 08:00 and MIMIC-IV nadir at 03:00 on their recorded clocks
+
+E7  eICU-CRD clock reference: administrative anchor (discharge clock times)
+---------------------------------------------------------------------------
+MIMIC-IV live hospital discharges after an ICU stay: 75,717; their ICU discharges: 83,101 (exact-midnight values excluded)
+  MIMIC-IV hospital_discharge: peak hour 16:00, busiest 3-hour window 15:00-17:59 holds 0.450; cosinor acrophase 15.98 h (Boston local time)
+  MIMIC-IV unit_discharge: peak hour 18:00, busiest 3-hour window 16:00-18:59 holds 0.370; cosinor acrophase 17.67 h (Boston local time)
+eICU-CRD live hospital discharges (one per patienthealthsystemstayid): 150,252; live unit discharges of patients discharged alive: 180,907
+lag of eICU discharge-time profile (recorded clock, 10-min bins) against MIMIC-IV (local); positive = eICU later on its recorded clock
+expected if eICU *time24 is UTC: Northeast +4 to +5 h, Midwest +4 to +6 h, South +4 to +6 h, West +6 to +8 h; if a common US Eastern clock: Northeast 0, Midwest and South 0 to +1, West +2 to +3; if local time: about 0 everywhere
+hospital_discharge:
+  Northeast: 10,101 discharges; pooled lag +4.00 h (r 0.97); 13 hospitals with >= 50 discharges: median lag +3.50 h (bootstrap 95% CI +3.00 to +3.50); cosinor phase lag: pooled +3.79 h, hospital median +3.28 h (bootstrap 95% CI +3.12 to +3.57)
+  (missing): 10,034 discharges; pooled lag +6.00 h (r 0.94); 17 hospitals with >= 50 discharges: median lag +5.00 h (bootstrap 95% CI +4.00 to +6.17); cosinor phase lag: pooled +5.79 h, hospital median +5.02 h (bootstrap 95% CI +4.20 to +6.47)
+  Midwest: 52,331 discharges; pooled lag +4.00 h (r 0.97); 61 hospitals with >= 50 discharges: median lag +3.50 h (bootstrap 95% CI +3.50 to +4.00); cosinor phase lag: pooled +4.21 h, hospital median +3.85 h (bootstrap 95% CI +3.63 to +4.04)
+  South: 47,300 discharges; pooled lag +4.00 h (r 0.97); 54 hospitals with >= 50 discharges: median lag +4.00 h (bootstrap 95% CI +3.75 to +4.50); cosinor phase lag: pooled +4.06 h, hospital median +4.06 h (bootstrap 95% CI +3.81 to +4.24)
+  West: 29,830 discharges; pooled lag +6.00 h (r 0.95); 39 hospitals with >= 50 discharges: median lag +6.33 h (bootstrap 95% CI +5.50 to +6.50); cosinor phase lag: pooled +6.32 h, hospital median +6.41 h (bootstrap 95% CI +5.73 to +6.53)
+unit_discharge:
+  Northeast: 12,740 discharges; pooled lag +1.00 h (r 0.86); 13 hospitals with >= 50 discharges: median lag +0.67 h (bootstrap 95% CI +0.17 to +1.00); cosinor phase lag: pooled +1.63 h, hospital median +0.51 h (bootstrap 95% CI +0.01 to +1.93)
+  (missing): 12,654 discharges; pooled lag +4.33 h (r 0.89); 17 hospitals with >= 50 discharges: median lag +4.33 h (bootstrap 95% CI +2.17 to +5.00); cosinor phase lag: pooled +4.11 h, hospital median +3.53 h (bootstrap 95% CI +2.66 to +5.15)
+  Midwest: 59,395 discharges; pooled lag +3.00 h (r 0.90); 61 hospitals with >= 50 discharges: median lag +2.50 h (bootstrap 95% CI +2.00 to +3.00); cosinor phase lag: pooled +3.15 h, hospital median +2.61 h (bootstrap 95% CI +2.16 to +2.96)
+  South: 53,710 discharges; pooled lag +3.00 h (r 0.89); 54 hospitals with >= 50 discharges: median lag +2.58 h (bootstrap 95% CI +1.50 to +3.17); cosinor phase lag: pooled +2.66 h, hospital median +2.43 h (bootstrap 95% CI +1.74 to +3.08)
+  West: 42,037 discharges; pooled lag +4.50 h (r 0.90); 39 hospitals with >= 50 discharges: median lag +4.50 h (bootstrap 95% CI +4.00 to +5.00); cosinor phase lag: pooled +4.57 h, hospital median +4.28 h (bootstrap 95% CI +4.09 to +4.88)
+
+Status
+------
+all checks completed
+outputs in /Users/yngve/paper26_results_v7

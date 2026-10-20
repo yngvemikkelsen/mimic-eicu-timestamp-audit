@@ -1,0 +1,2 @@
+n_stays,span_years,mean_census_shifted,median_census_shifted,p90_census_shifted,p99_census_shifted,max_census_shifted,time_share_census_zero,implied_mean_real_census
+94444,104.53467535554034,8.979111642053185,10.0,15.0,20.0,27,0.07806734509141387,62.57523469887884

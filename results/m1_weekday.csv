@@ -1,0 +1,8 @@
+weekday,n_scheduled_first_per_patient,n_scheduled_all,n_all_first_per_patient,n_elective_first_per_patient,n_surgical_same_day_admission_first_per_patient
+Mon,5898,7892,32004,1390,4851
+Tue,5846,7950,31973,1359,4841
+Wed,5883,7976,31820,1353,4905
+Thu,6032,8023,31828,1404,4972
+Fri,5907,7971,31600,1384,4882
+Sat,6193,8286,32223,1452,5092
+Sun,5924,7930,32004,1333,4938

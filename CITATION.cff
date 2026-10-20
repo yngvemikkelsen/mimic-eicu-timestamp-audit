@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the paper."
+title: "What de-identified timestamps support in MIMIC-IV and eICU-CRD"
+abstract: >-
+  Analysis code and aggregate outputs for an empirical audit of the
+  de-identified timestamps of MIMIC-IV v3.1 and eICU-CRD v2.0. The checks
+  test whether calendar position (weekday, season), cross-patient
+  concurrency, time of day and timestamp precision are preserved, and
+  determine the clock reference of the eICU-CRD clock fields with a
+  laboratory-routine anchor, a physiological (heart-rate and
+  respiratory-rate) anchor and an administrative (discharge-time) anchor
+  against MIMIC-IV local time. A synthetic-data
+  generator with planted effects is included for testing. No record-level
+  data or eICU-CRD hospital identifiers are included.
+authors:
+  - family-names: Mikkelsen
+    given-names: Yngve
+    orcid: "https://orcid.org/0000-0003-1543-3805"
+    affiliation: "Independent Researcher, Jar, Norway"
+version: "1.0.0"
+date-released: "2026-10-20"
+license: MIT
+repository-code: "https://github.com/yngvemikkelsen/mimic-eicu-timestamp-audit"
+keywords:
+  - electronic health records
+  - de-identification
+  - date shifting
+  - timestamps
+  - data quality
+  - intensive care
+  - MIMIC-IV
+  - eICU-CRD
+references:
+  - type: article
+    title: >-
+      What De-identified Timestamps Support in MIMIC-IV and eICU-CRD: An
+      Empirical Audit of Calendar Position, Concurrency, Clock Time and
+      Precision
+    authors:
+      - family-names: Mikkelsen
+        given-names: Yngve
+    year: 2026
+    notes: "Manuscript"
