@@ -1,5 +1,5 @@
-Paper 26 timestamp checks (v8)
-run 2026-10-20 18:54:34
+Paper 26 timestamp checks (v11)
+run 2026-10-20 21:36:40
 MIMIC-IV root: /Users/yngve/physionet.org/files/mimiciv/3.1
 eICU-CRD root: /Users/yngve/physionet.org/files/eicu-crd/2.0
 
@@ -159,7 +159,46 @@ unit_discharge:
   South: 53,710 discharges; pooled lag +3.00 h (r 0.89); 54 hospitals with >= 50 discharges: median lag +2.58 h (bootstrap 95% CI +1.50 to +3.17); cosinor phase lag: pooled +2.66 h, hospital median +2.43 h (bootstrap 95% CI +1.74 to +3.08)
   West: 42,037 discharges; pooled lag +4.50 h (r 0.90); 39 hospitals with >= 50 discharges: median lag +4.50 h (bootstrap 95% CI +4.00 to +5.00); cosinor phase lag: pooled +4.57 h, hospital median +4.28 h (bootstrap 95% CI +4.09 to +4.88)
 
+E8  Worked example: heart-rate peak time and in-hospital mortality, recorded clock against local time
+-----------------------------------------------------------------------------------------------------
+design modelled on Yang et al., Heart Rhythm 2022 (eICU-CRD; highest in-hospital mortality with heart-rate peak time 12:00-18:00 on the recorded clock): per-stay cosinor peak time (acrophase) of hourly heart rate, stays with significant rhythmicity (zero-amplitude F test p < 0.05), peak time in 6-hour windows, logistic regression for in-hospital mortality
+expected if the eICU-CRD clock is UTC: a recorded peak time of 12:00-17:59 corresponds to about 05:00-13:30 local time (regional offsets 4.5-7 h), so the stays it labels as afternoon peaks have morning peaks in local time, and the association attached to 12:00-17:59 changes after conversion; if the clock is local, conversion should make the association worse, not clearer
+unit stays: 200,859; patients (uniquepid): 139,367; one stay per patient (first unit stay of the first hospital stay, by discharge year)
+with heart rate covering >= 18 clock hours: 114,024
+adjusted models: APACHE IV score (apachePatientResult, apacheversion IV, score >= 0)
+  missing in-hospital outcome: 1,031; no hospital region: 7,548
+  rhythmic (p < 0.05): 87,827
+  known in-hospital outcome: 87,045
+  hospital region recorded: 81,288
+  APACHE IV score available: 73,291
+conversion to local time: peak time minus a regional offset (hours): local time, UTC offset (midpoint): Northeast +4.50, Midwest +5.00, South +5.00, West +7.00; local time, UTC offset - 1 h: Northeast +3.50, Midwest +4.00, South +4.00, West +6.00; local time, UTC offset + 1 h: Northeast +5.50, Midwest +6.00, South +6.00, West +8.00; local time, hospital-discharge anchor offset: Northeast +3.28, Midwest +3.85, South +4.06, West +6.41
+stroke subgroup: apacheadmissiondx exactly 'CVA, cerebrovascular accident/stroke': 3,229 stays; other diagnoses containing 'stroke' or 'CVA' (not included): Heat exhaustion/stroke (11)
+all rhythmic first stays: 73,291 stays in 169 hospitals; in-hospital deaths 6,351 (0.087)
+  recorded clock: peak-time shares 00:00-05:59 0.254, 06:00-11:59 0.137, 12:00-17:59 0.169, 18:00-23:59 0.440; stays in a different window than on the recorded clock: 0.000
+    peak 12:00-17:59 against all other windows: mortality 0.111 vs 0.082; OR 1.40 (95% CI 1.30-1.49); APACHE IV-adjusted OR 1.28 (95% CI 1.19-1.38)
+  local time, UTC offset (midpoint): peak-time shares 00:00-05:59 0.143, 06:00-11:59 0.147, 12:00-17:59 0.431, 18:00-23:59 0.279; stays in a different window than on the recorded clock: 0.861
+    peak 12:00-17:59 against all other windows: mortality 0.071 vs 0.099; OR 0.69 (95% CI 0.65-0.74); APACHE IV-adjusted OR 0.79 (95% CI 0.74-0.85)
+  local time, UTC offset - 1 h: peak-time shares 00:00-05:59 0.152, 06:00-11:59 0.134, 12:00-17:59 0.384, 18:00-23:59 0.329; stays in a different window than on the recorded clock: 0.725
+    peak 12:00-17:59 against all other windows: mortality 0.075 vs 0.094; OR 0.77 (95% CI 0.73-0.83); APACHE IV-adjusted OR 0.86 (95% CI 0.81-0.93)
+  local time, UTC offset + 1 h: peak-time shares 00:00-05:59 0.135, 06:00-11:59 0.173, 12:00-17:59 0.454, 18:00-23:59 0.238; stays in a different window than on the recorded clock: 0.994
+    peak 12:00-17:59 against all other windows: mortality 0.068 vs 0.102; OR 0.64 (95% CI 0.60-0.69); APACHE IV-adjusted OR 0.76 (95% CI 0.71-0.81)
+  local time, hospital-discharge anchor offset: peak-time shares 00:00-05:59 0.152, 06:00-11:59 0.135, 12:00-17:59 0.385, 18:00-23:59 0.329; stays in a different window than on the recorded clock: 0.716
+    peak 12:00-17:59 against all other windows: mortality 0.074 vs 0.094; OR 0.77 (95% CI 0.72-0.82); APACHE IV-adjusted OR 0.85 (95% CI 0.79-0.92)
+  circular mean peak time: recorded clock 22.1 h; local time (midpoint offset) 16.8 h
+stroke admission diagnosis: 3,229 stays in 132 hospitals; in-hospital deaths 308 (0.095)
+  recorded clock: peak-time shares 00:00-05:59 0.262, 06:00-11:59 0.122, 12:00-17:59 0.140, 18:00-23:59 0.476; stays in a different window than on the recorded clock: 0.000
+    peak 12:00-17:59 against all other windows: mortality 0.144 vs 0.087; OR 1.76 (95% CI 1.29-2.39); APACHE IV-adjusted OR 1.69 (95% CI 1.20-2.37)
+  local time, UTC offset (midpoint): peak-time shares 00:00-05:59 0.132, 06:00-11:59 0.112, 12:00-17:59 0.468, 18:00-23:59 0.287; stays in a different window than on the recorded clock: 0.865
+    peak 12:00-17:59 against all other windows: mortality 0.063 vs 0.124; OR 0.47 (95% CI 0.38-0.59); APACHE IV-adjusted OR 0.59 (95% CI 0.46-0.75)
+  local time, UTC offset - 1 h: peak-time shares 00:00-05:59 0.143, 06:00-11:59 0.095, 12:00-17:59 0.416, 18:00-23:59 0.346; stays in a different window than on the recorded clock: 0.739
+    peak 12:00-17:59 against all other windows: mortality 0.066 vs 0.117; OR 0.53 (95% CI 0.40-0.71); APACHE IV-adjusted OR 0.67 (95% CI 0.50-0.89)
+  local time, UTC offset + 1 h: peak-time shares 00:00-05:59 0.119, 06:00-11:59 0.140, 12:00-17:59 0.498, 18:00-23:59 0.243; stays in a different window than on the recorded clock: 0.994
+    peak 12:00-17:59 against all other windows: mortality 0.063 vs 0.127; OR 0.47 (95% CI 0.38-0.58); APACHE IV-adjusted OR 0.61 (95% CI 0.48-0.77)
+  local time, hospital-discharge anchor offset: peak-time shares 00:00-05:59 0.144, 06:00-11:59 0.093, 12:00-17:59 0.421, 18:00-23:59 0.343; stays in a different window than on the recorded clock: 0.734
+    peak 12:00-17:59 against all other windows: mortality 0.064 vs 0.118; OR 0.51 (95% CI 0.38-0.68); APACHE IV-adjusted OR 0.64 (95% CI 0.48-0.85)
+  circular mean peak time: recorded clock 22.3 h; local time (midpoint offset) 17.0 h
+
 Status
 ------
 all checks completed
-outputs in /Users/yngve/paper26_results_v8
+outputs in /Users/yngve/paper26_results_v11

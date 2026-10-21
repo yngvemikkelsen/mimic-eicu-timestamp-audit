@@ -1,0 +1,41 @@
+cohort,clock,peak_window,n,deaths,mortality
+all rhythmic first stays,recorded clock,00:00-05:59,18580,1490,0.08019375672766416
+all rhythmic first stays,recorded clock,06:00-11:59,10075,1244,0.12347394540942928
+all rhythmic first stays,recorded clock,12:00-17:59,12383,1369,0.11055479286118065
+all rhythmic first stays,recorded clock,18:00-23:59,32253,2248,0.06969894273400924
+all rhythmic first stays,"local time, UTC offset (midpoint)",00:00-05:59,10494,1218,0.11606632361349342
+all rhythmic first stays,"local time, UTC offset (midpoint)",06:00-11:59,10785,1298,0.12035234121464998
+all rhythmic first stays,"local time, UTC offset (midpoint)",12:00-17:59,31571,2228,0.07057109372525419
+all rhythmic first stays,"local time, UTC offset (midpoint)",18:00-23:59,20441,1607,0.07861650604177878
+all rhythmic first stays,"local time, UTC offset - 1 h",00:00-05:59,11148,1238,0.1110513096519555
+all rhythmic first stays,"local time, UTC offset - 1 h",06:00-11:59,9845,1240,0.12595226003047233
+all rhythmic first stays,"local time, UTC offset - 1 h",12:00-17:59,28168,2099,0.07451718261857426
+all rhythmic first stays,"local time, UTC offset - 1 h",18:00-23:59,24130,1774,0.07351844177372566
+all rhythmic first stays,"local time, UTC offset + 1 h",00:00-05:59,9888,1224,0.12378640776699029
+all rhythmic first stays,"local time, UTC offset + 1 h",06:00-11:59,12688,1393,0.10978877679697352
+all rhythmic first stays,"local time, UTC offset + 1 h",12:00-17:59,33303,2272,0.06822208209470618
+all rhythmic first stays,"local time, UTC offset + 1 h",18:00-23:59,17412,1462,0.08396508155295199
+all rhythmic first stays,"local time, hospital-discharge anchor offset",00:00-05:59,11114,1231,0.11076120208745727
+all rhythmic first stays,"local time, hospital-discharge anchor offset",06:00-11:59,9861,1238,0.125545076564243
+all rhythmic first stays,"local time, hospital-discharge anchor offset",12:00-17:59,28231,2096,0.0742446247033403
+all rhythmic first stays,"local time, hospital-discharge anchor offset",18:00-23:59,24085,1786,0.0741540377828524
+stroke admission diagnosis,recorded clock,00:00-05:59,847,80,0.09445100354191263
+stroke admission diagnosis,recorded clock,06:00-11:59,395,59,0.14936708860759493
+stroke admission diagnosis,recorded clock,12:00-17:59,451,65,0.14412416851441243
+stroke admission diagnosis,recorded clock,18:00-23:59,1536,104,0.06770833333333333
+stroke admission diagnosis,"local time, UTC offset (midpoint)",00:00-05:59,427,67,0.15690866510538642
+stroke admission diagnosis,"local time, UTC offset (midpoint)",06:00-11:59,363,59,0.162534435261708
+stroke admission diagnosis,"local time, UTC offset (midpoint)",12:00-17:59,1512,95,0.06283068783068783
+stroke admission diagnosis,"local time, UTC offset (midpoint)",18:00-23:59,927,87,0.09385113268608414
+stroke admission diagnosis,"local time, UTC offset - 1 h",00:00-05:59,462,66,0.14285714285714285
+stroke admission diagnosis,"local time, UTC offset - 1 h",06:00-11:59,307,59,0.19218241042345277
+stroke admission diagnosis,"local time, UTC offset - 1 h",12:00-17:59,1343,88,0.06552494415487714
+stroke admission diagnosis,"local time, UTC offset - 1 h",18:00-23:59,1117,95,0.08504923903312445
+stroke admission diagnosis,"local time, UTC offset + 1 h",00:00-05:59,384,62,0.16145833333333334
+stroke admission diagnosis,"local time, UTC offset + 1 h",06:00-11:59,453,60,0.13245033112582782
+stroke admission diagnosis,"local time, UTC offset + 1 h",12:00-17:59,1607,102,0.06347230864965775
+stroke admission diagnosis,"local time, UTC offset + 1 h",18:00-23:59,785,84,0.1070063694267516
+stroke admission diagnosis,"local time, hospital-discharge anchor offset",00:00-05:59,464,69,0.14870689655172414
+stroke admission diagnosis,"local time, hospital-discharge anchor offset",06:00-11:59,299,57,0.19063545150501673
+stroke admission diagnosis,"local time, hospital-discharge anchor offset",12:00-17:59,1359,87,0.0640176600441501
+stroke admission diagnosis,"local time, hospital-discharge anchor offset",18:00-23:59,1107,95,0.08581752484191509

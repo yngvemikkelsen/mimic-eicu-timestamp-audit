@@ -1,12 +1,12 @@
-script: paper26_timestamp_checks_v8.py
-started: 2026-10-20 18:54:34
-finished: 2026-10-20 19:03:24
+script: paper26_timestamp_checks_v11.py
+started: 2026-10-20 21:36:40
+finished: 2026-10-20 21:45:44
 python: 3.12.13
 pandas: 3.0.6
 numpy: 2.5.4
 statsmodels: 0.15.0
 matplotlib: 3.11.2
-arguments: {'mimic_root': PosixPath('/Users/yngve/physionet.org/files/mimiciv/3.1'), 'eicu_root': PosixPath('/Users/yngve/physionet.org/files/eicu-crd/2.0'), 'out_dir': PosixPath('/Users/yngve/paper26_results_v8'), 'chunksize': 5000000, 'max_lab_rows': 0, 'min_hospital_labs': 2000, 'reference_region': 'Northeast', 'skip_mimic': False, 'skip_eicu': False, 'skip_e6': False, 'only_e6': False, 'skip_e7': False, 'only_e7': False, 'keep_hospital_ids': False}
+arguments: {'mimic_root': PosixPath('/Users/yngve/physionet.org/files/mimiciv/3.1'), 'eicu_root': PosixPath('/Users/yngve/physionet.org/files/eicu-crd/2.0'), 'out_dir': PosixPath('/Users/yngve/paper26_results_v11'), 'chunksize': 5000000, 'max_lab_rows': 0, 'min_hospital_labs': 2000, 'reference_region': 'Northeast', 'skip_mimic': False, 'skip_eicu': False, 'skip_e6': False, 'only_e6': False, 'skip_e7': False, 'only_e7': False, 'skip_e8': False, 'keep_hospital_ids': False}
 input files:
   /Users/yngve/physionet.org/files/mimiciv/3.1/hosp/admissions.csv.gz  19,928,140 bytes  modified 2024-06-24 17:42
   /Users/yngve/physionet.org/files/mimiciv/3.1/hosp/diagnoses_icd.csv.gz  33,564,802 bytes  modified 2024-10-03 15:07
@@ -19,3 +19,4 @@ input files:
   /Users/yngve/physionet.org/files/mimiciv/3.1/icu/chartevents.csv.gz  3,502,392,765 bytes  modified 2024-04-13 05:06
   /Users/yngve/physionet.org/files/mimiciv/3.1/icu/d_items.csv.gz  58,741 bytes  modified 2024-04-13 05:07
   /Users/yngve/physionet.org/files/eicu-crd/2.0/vitalPeriodic.csv.gz  1,784,209,686 bytes  modified 2019-03-19 15:45
+  /Users/yngve/physionet.org/files/eicu-crd/2.0/apachePatientResult.csv.gz  17,312,631 bytes  modified 2019-03-19 15:44

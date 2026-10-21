@@ -9,16 +9,18 @@ abstract: >-
   determine the clock reference of the eICU-CRD clock fields with a
   laboratory-routine anchor, a physiological (heart-rate and
   respiratory-rate) anchor and an administrative (discharge-time) anchor
-  against MIMIC-IV local time. A synthetic-data
-  generator with planted effects is included for testing. No record-level
-  data or eICU-CRD hospital identifiers are included.
+  against MIMIC-IV local time. A worked example repeats a published
+  eICU-CRD analysis of heart-rate peak time and in-hospital mortality on
+  the recorded clock and in local time. A synthetic-data generator with
+  planted effects is included for testing. No record-level data or
+  eICU-CRD hospital identifiers are included.
 authors:
   - family-names: Mikkelsen
     given-names: Yngve
     orcid: "https://orcid.org/0000-0003-1543-3805"
     affiliation: "Independent Researcher, Jar, Norway"
-version: "1.0.0"
-date-released: "2026-10-20"
+version: "1.1.0"
+date-released: "2026-10-21"
 license: MIT
 repository-code: "https://github.com/yngvemikkelsen/mimic-eicu-timestamp-audit"
 keywords:
